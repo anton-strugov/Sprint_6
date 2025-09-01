@@ -20,7 +20,7 @@ class TestHomePage(BaseTest):
             (7, 'Я жизу за МКАДом, привезёте?', 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'),
         ),
     )
-    def test_question(self, index, question, answer):
+    def test_question(self, index: int, question: str, answer: str) -> None:
         home_page = HomePage(self.driver)
         home_page.click_question(index)
         home_page.wait_for_answer_visible(index)

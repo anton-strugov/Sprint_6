@@ -31,7 +31,7 @@ class HomePage(BasePage):
         return self.find_elements(self.questions)[index]
 
     @step('Ожидать появления элемента списка вопросов по индексу')
-    def wait_for_question_clickable(self, index: int):
+    def wait_for_question_clickable(self, index: int) -> None:
         wd_wait(self.driver, Config.TIMEOUT).until(
             exp_conds.visibility_of(
                 self.get_question_item(index).find_element(*self.question_btn),

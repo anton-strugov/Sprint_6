@@ -5,10 +5,10 @@ class BaseTest:
     driver = None
 
     @classmethod
-    def setup_class(cls):
+    def setup_class(cls) -> None:
         cls.driver = webdriver.Firefox()
         cls.driver.maximize_window()
 
     @classmethod
-    def teardown_class(cls):
+    def teardown_class(cls) -> None:
         cls.driver.quit()

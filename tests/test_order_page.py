@@ -54,7 +54,7 @@ class TestOrder(BaseTest):
         rental_period: str,
         colors: str,
         comment: str,
-    ):
+    ) -> None:
         HomePage(self.driver).click_order(btn_index)
         order_page = OrderPage(self.driver)
         order_page.fill_out_first_page(

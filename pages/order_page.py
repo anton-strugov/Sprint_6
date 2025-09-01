@@ -141,5 +141,5 @@ class OrderPage(BasePage):
         self.click(self.order_modal_yes_btn)
 
     @step('Кликнуть по кнопке "Показать статус"')
-    def click_order_modal_show_status_btn(self):
+    def click_order_modal_show_status_btn(self) -> None:
         self.click(self.order_modal_show_status_btn)
