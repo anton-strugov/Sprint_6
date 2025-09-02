@@ -6,6 +6,7 @@ from config import Config
 from pages.home_page import HomePage
 from pages.order_page import OrderPage
 from pages.header import Header
+from test_data.order_page_data import orders
 
 
 class TestOrder:
@@ -15,32 +16,7 @@ class TestOrder:
             'btn_index,first_name,last_name,address,metro_station,phone,'
             'date,rental_period,colors,comment'
         ),
-        [
-            (
-                0,
-                'Игорь',
-                'Потов',
-                'Ленина 1',
-                'Сокольники',
-                '79999876543',
-                '25.02.2026',
-                'сутки',
-                'чёрный жемчуг,серая безысходность',
-                'Комментарий для курьера',
-            ),
-            (
-                1,
-                'Владимир',
-                'Ленин',
-                'Карла Маркса 7',
-                'Ленинский проспект',
-                '89876543210',
-                '07.11.2026',
-                'трое суток',
-                'серая безысходность',
-                'Пролетарии всех стран, соединятесь!',
-            ),
-        ]
+        orders,
     )
     def test_create_order(
         self,
