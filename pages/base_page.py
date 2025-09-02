@@ -52,11 +52,13 @@ class BasePage:
     @step('Ожидать появления указанного элемента')
     def wait_until_element_visible(
         self,
-        locator: Tuple[str, str],
+        target: Tuple[str, str] | WebElement,
         timeout: int = Config.TIMEOUT,
     ) -> None:
+        if not isinstance(target, WebElement):
+            target = self.find_element(target)
         wd_wait(self.driver, timeout).until(
-            exp_conds.visibility_of_element_located(locator),
+            exp_conds.visibility_of(target),
         )
 
     @step('Проверить видимость указанного элемента')

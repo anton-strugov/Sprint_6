@@ -1,11 +1,8 @@
-from selenium.webdriver.support import expected_conditions as exp_conds
-from selenium.webdriver.support.wait import WebDriverWait as wd_wait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from allure import step
 
-from config import Config
 from pages.base_page import BasePage
 
 
@@ -31,10 +28,8 @@ class HomePage(BasePage):
 
     @step('Ожидать появления элемента списка вопросов по индексу')
     def wait_for_question_clickable(self, index: int) -> None:
-        wd_wait(self.driver, Config.TIMEOUT).until(
-            exp_conds.visibility_of(
-                self.get_question_item(index).find_element(*self.question_btn),
-            ),
+        self.wait_until_element_visible(
+            self.get_question_item(index).find_element(*self.question_btn),
         )
 
     @step('Кликнуть по строке вопроса')
@@ -54,10 +49,8 @@ class HomePage(BasePage):
 
     @step('Ожидать появления ответа по индексу')
     def wait_for_answer_visible(self, index: int) -> None:
-        wd_wait(self.driver, Config.TIMEOUT).until(
-            exp_conds.visibility_of(
-                self.get_question_item(index).find_element(*self.answer),
-            ),
+        self.wait_until_element_visible(
+            self.get_question_item(index).find_element(*self.answer),
         )
 
     @step('Получить текст ответа по индексу')
