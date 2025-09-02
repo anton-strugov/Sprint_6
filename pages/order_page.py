@@ -13,6 +13,7 @@ class OrderPage(BasePage):
         By.XPATH,
         './/input[contains(@placeholder, "Станция метро")]',
     )
+    metro_station_element = By.XPATH, './/div[text()="{}"]'
     phone_input = By.XPATH, './/input[contains(@placeholder, "Телефон")]'
     date_input = (
         By.XPATH,
@@ -22,7 +23,9 @@ class OrderPage(BasePage):
         By.XPATH,
         './/div[contains(text(), "Срок аренды")]',
     )
+    rental_period_element = By.XPATH, './/div[text()="{}"]'
     color_group = By.XPATH, './/div[text()="Цвет самоката"]'
+    color_element = By.XPATH, './/label[text()="{}"]'
     comment_input = (
         By.XPATH,
         './/input[@placeholder="Комментарий для курьера"]',
@@ -49,15 +52,8 @@ class OrderPage(BasePage):
 
     @step('Выбрать значение из списка для поля "Станция метро"')
     def set_metro_station(self, value: str) -> None:
-        input = self.find_element(self.metro_station_input)
-        input.click()
-        input.parent.find_element(
-            By.XPATH,
-            (
-                './/div[@class="select-search__select"]'
-                f'//div[text()="{value}"]'
-            )
-        ).click()
+        self.click(self.metro_station_input)
+        self.find_element(self.metro_station_element, value).click()
 
     @step('Установить значение поля "Телефон"')
     def set_phone(self, value: str) -> None:
@@ -93,22 +89,14 @@ class OrderPage(BasePage):
 
     @step('Установить значение поля срока аренды')
     def set_rental_period(self, value: str) -> None:
-        element = self.find_element(self.rental_period_field)
-        element.click()
-        element.find_element(
-            By.XPATH,
-            f'../..//div[text()="{value}"]',
-        ).click()
+        self.click(self.rental_period_field)
+        self.find_element(self.rental_period_element, value).click()
 
     @step('Установить чекбоксы цветов самоката')
     def set_colors(self, value: str) -> None:
-        group = self.find_element(self.color_group)
         colors = value.split(',')
         for color in colors:
-            group.parent.find_element(
-                By.XPATH,
-                f'.//label[text()="{color}"]',
-            ).click()
+            self.find_element(self.color_element, color).click()
 
     @step('Установить значение поля комментария')
     def set_comment(self, value: str) -> None:

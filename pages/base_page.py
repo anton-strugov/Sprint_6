@@ -14,7 +14,14 @@ class BasePage:
         self.driver = driver
 
     @step('Найти элемент по локатору')
-    def find_element(self, locator: Tuple[str, str]) -> WebElement:
+    def find_element(
+        self,
+        locator: Tuple[str, str],
+        template_value: str = None,
+    ) -> WebElement:
+        if template_value is not None:
+            new_locator = locator[1].format(template_value)
+            return self.driver.find_element(locator[0], new_locator)
         return self.driver.find_element(*locator)
 
     @step('Найти список элементов по локатору')
