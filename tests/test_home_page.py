@@ -1,11 +1,11 @@
 import pytest
 from allure import title
+from selenium.webdriver.remote.webdriver import WebDriver
 
-from conftest import BaseTest
 from pages.home_page import HomePage
 
 
-class TestHomePage(BaseTest):
+class TestHomePage:
     @title('Проверка раскртия вопросов и соттветствия ответов вопросам')
     @pytest.mark.parametrize(
         'index,question,answer',
@@ -20,8 +20,14 @@ class TestHomePage(BaseTest):
             (7, 'Я жизу за МКАДом, привезёте?', 'Да, обязательно. Всем самокатов! И Москве, и Московской области.'),
         ),
     )
-    def test_question(self, index: int, question: str, answer: str) -> None:
-        home_page = HomePage(self.driver)
+    def test_question(
+        self,
+        driver: WebDriver,
+        index: int,
+        question: str,
+        answer: str,
+    ) -> None:
+        home_page = HomePage(driver)
         home_page.click_question(index)
         home_page.wait_for_answer_visible(index)
         assert home_page.get_question_text(index) == question

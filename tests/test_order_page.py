@@ -1,14 +1,14 @@
 import pytest
 from allure import title
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from config import Config
-from conftest import BaseTest
 from pages.home_page import HomePage
 from pages.order_page import OrderPage
 from pages.header import Header
 
 
-class TestOrder(BaseTest):
+class TestOrder:
     @title('Проверка положительного сценария создания заказа')
     @pytest.mark.parametrize(
         (
@@ -44,6 +44,7 @@ class TestOrder(BaseTest):
     )
     def test_create_order(
         self,
+        driver: WebDriver,
         btn_index: int,
         first_name: str,
         last_name: str,
@@ -55,8 +56,8 @@ class TestOrder(BaseTest):
         colors: str,
         comment: str,
     ) -> None:
-        HomePage(self.driver).click_order(btn_index)
-        order_page = OrderPage(self.driver)
+        HomePage(driver).click_order(btn_index)
+        order_page = OrderPage(driver)
         order_page.fill_out_first_page(
             first_name,
             last_name,
@@ -79,12 +80,12 @@ class TestOrder(BaseTest):
         )
         order_page.click_order_modal_show_status_btn()
 
-        header = Header(self.driver)
+        header = Header(driver)
         header.click_scooter_logo()
         assert header.is_url_equal(Config.BASE_URL)
 
-        window_handles_count = len(self.driver.window_handles)
+        window_handles_count = len(driver.window_handles)
         header.click_yandex_logo()
-        assert len(self.driver.window_handles) > window_handles_count
-        self.driver.switch_to.window(self.driver.window_handles[-1])
+        assert len(driver.window_handles) > window_handles_count
+        driver.switch_to.window(driver.window_handles[-1])
         header.is_url_equal('https://dzen.ru/?yredirect=true')

@@ -18,7 +18,6 @@ class HomePage(BasePage):
     @step('Перейти на домашнюю страницу')
     def __init__(self, driver: WebDriver) -> None:
         super().__init__(driver)
-        self.driver.get(Config.BASE_URL)
 
     @step('Кликнуть по кнопке "Заказать"')
     def click_order(self, index: int) -> None:
