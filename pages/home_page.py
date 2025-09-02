@@ -19,7 +19,7 @@ class HomePage(BasePage):
     @step('Кликнуть по кнопке "Заказать"')
     def click_order(self, index: int) -> None:
         btn = self.find_elements(self.order_btns)[index]
-        self.driver.execute_script('arguments[0].scrollIntoView(true);', btn)
+        self.scroll_to_element(btn)
         btn.click()
 
     @step('Получить элемент списка вопросов по индексу')
@@ -34,8 +34,7 @@ class HomePage(BasePage):
 
     @step('Кликнуть по строке вопроса')
     def click_question(self, index: int) -> None:
-        self.driver.execute_script(
-            'arguments[0].scrollIntoView(true);',
+        self.scroll_to_element(
             self.get_question_item(index).find_element(*self.question_btn)
         )
         self.wait_for_question_clickable(index)

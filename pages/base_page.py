@@ -79,3 +79,18 @@ class BasePage:
         except TimeoutError:
             return False
         return True
+
+    @step('Прокрутить страницу к элементу')
+    def scroll_to_element(self, target: WebElement) -> None:
+        self.driver.execute_script(
+            'arguments[0].scrollIntoView(true);',
+            target,
+        )
+
+    @step('Получить количество открытых вкладок')
+    def get_tabs_count(self) -> int:
+        return len(self.driver.window_handles)
+
+    @step('Переключиться на новую вкладку')
+    def switch_to_new_tab(self) -> None:
+        self.driver.switch_to.window(self.driver.window_handles[-1])

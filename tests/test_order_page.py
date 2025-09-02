@@ -60,8 +60,8 @@ class TestOrder:
         header.click_scooter_logo()
         assert header.is_url_equal(Config.BASE_URL)
 
-        window_handles_count = len(driver.window_handles)
+        tabs_count = header.get_tabs_count()
         header.click_yandex_logo()
-        assert len(driver.window_handles) > window_handles_count
-        driver.switch_to.window(driver.window_handles[-1])
+        assert header.get_tabs_count() > tabs_count
+        header.switch_to_new_tab()
         header.is_url_equal('https://dzen.ru/?yredirect=true')
